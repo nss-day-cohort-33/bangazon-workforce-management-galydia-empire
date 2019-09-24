@@ -1,0 +1,33 @@
+{% extends 'shared/base.html' %}
+
+{% block content %}
+
+<h1>Add Computer</h1>
+
+    <form action="{% url 'hrapp:computer_list' %}" method="post">
+      {% csrf_token %}
+      <fieldset>
+          <label for="make">Make: </label>
+          <input id="make" type="text" name="make">
+      </fieldset>
+      <fieldset>
+          <label for="purchase_date">Purchase Date: </label>
+          <input id="purchase_date" type="text" name="purchase_date">
+      </fieldset>
+      <fieldset>
+          <label for="decommission_date">Decommission Date: </label>
+          <input id="decommission_date" type="text" name="decommission_date">
+      </fieldset>
+      {% comment %} <fieldset>
+          <label for="location">Library: </label>
+          <select id="location" type="text" name="location">
+                {% for library in all_libraries %}
+                    <option value="{{ library.id }}">{{ library.title }}</option>
+                {% endfor %}
+          </select>
+      </fieldset> {% endcomment %}
+
+      <input type="submit" value="Add It" />
+    </form>
+
+{% endblock %}

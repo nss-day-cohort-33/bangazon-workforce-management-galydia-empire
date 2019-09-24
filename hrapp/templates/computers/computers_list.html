@@ -1,0 +1,18 @@
+{% extends 'shared/base.html' %}
+
+{% block content %}
+<h1>Computers</h1>
+<a href="{% url 'hrapp:computer_form' %}">Add Computer to Bangazon</a>
+
+
+<ol>
+{% for computer in computers %}
+    <li>
+        <p>{{ computer }}</p>
+        Make: {{computer.make}}
+            Purchase Date: {{computer.purchase_date}}
+            Decommission Date: {{computer.decommission_date}}
+    </li>
+{% endfor %}
+</ol>
+{% endblock content %}
