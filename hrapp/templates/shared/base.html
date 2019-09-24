@@ -6,6 +6,19 @@
     <meta charset="utf-8">
     <title>Bangazon Workforce Management</title>
 
+    <style>
+        .navList {
+            list-style-type: none;
+            display: flex;
+            border: 1px solid lightgray;
+            padding: 1em;
+        }
+
+        .navList__route {
+            margin: 0 0.5em;
+        }
+    </style>
+
     <link rel="stylesheet" href="{% static 'styles/base.css' %}" type="text/css" media="screen" />
 
     {% block css %}
@@ -13,6 +26,15 @@
 </head>
 
 <body>
+    <nav id="site-nav">
+        <ol class="navList">
+            <li class="navList__route"><a href="{% url 'hrapp:employee_list' %}">Employees</a></li>
+            {% comment %} <li class="navList__route"><a href="{% url 'hrapp:departments' %}">Departments</a></li>
+            <li class="navList__route"><a href="{% url 'hrapp:computers' %}">Computers</a></li>
+            <li class="navList__route"><a href="{% url 'hrapp:training_programs' %}">Training Programs</a></li> {% endcomment %}
+            <li class="navList__route"><a href="{% url 'hrapp:logout' %}">Logout</a></li>
+        </ol>
+    </nav>
 
     {% block content %}
     {% endblock %}
