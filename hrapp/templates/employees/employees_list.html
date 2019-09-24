@@ -2,6 +2,8 @@
 
 {% block content %}
 <h1>Employees</h1>
+{% comment %} <a href="{% url 'hrapp:employee_form' %}">Add Employee to Bangazon</a> {% endcomment %}
+
 
 <ol>
 {% for employee in employees %}
