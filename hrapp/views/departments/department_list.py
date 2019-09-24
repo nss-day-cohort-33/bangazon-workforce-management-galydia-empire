@@ -13,14 +13,14 @@ def department_list(request):
             db_cursor.execute("""
             select
                 d.id,
-                d.name,
+                d.dept_name,
                 d.budget,
                 e.id,
                 e.first_name,
                 e.last_name,
                 e.department_id
                 FROM hrapp_department d
-                JOIN hrapp_employee b ON d.id = e.department_id
+                JOIN hrapp_employee e ON e.id = e.department_id
             """)
 
 
@@ -30,12 +30,12 @@ def department_list(request):
             for row in dataset:
                 department = Department()
                 department.id = row['id']
-                department.name = row['name']
+                department.dept_name = row['dept_name']
                 department.budget = row['budget']
 
-                all_departments.append(book)
+                all_departments.append(department)
 
-        template = 'departents/list.html'
+        template = 'departments/department_list.html'
         context = {
             'all_departments': all_departments
         }
