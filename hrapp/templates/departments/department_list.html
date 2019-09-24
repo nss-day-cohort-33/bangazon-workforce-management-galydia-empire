@@ -9,9 +9,11 @@
 <ol>
 {% for department in departments %}
     <li>
-        <p>{{ department }}</p>
-        Employees: {{ employee.first_name }} {{ employee.last_name }}
+        <p>{{ department.dept_name }}</p>
+        <p>Budget:{{ department.budget }}</p>
+        <p>Employees: {{ employee.first_name }} {{ employee.last_name }}</p>
     </li>
 {% endfor %}
 </ol>
 {% endblock content %}
+

@@ -1,13 +1,40 @@
 import sqlite3
 from django.shortcuts import render
-from hrapp.models import Department
+from hrapp.models import Department, Employee
+from hrapp.models import model_factory
 from ..connection import Connection
+from django.contrib.auth.decorators import login_required
 
 
+def create_department(cursor, row):
+    _row = sqlite3.Row(cursor, row)
+
+    department = Department()
+    department.id = _row["id"]
+    department.dept_name = _row["dept_name"]
+    department.budget = _row["budget"]
+
+    # Note: You are adding a blank employees list to the department object
+    # This list will be populated later (see below)
+    department.employees = []
+
+    employee = Employee()
+    employee.id = _row ["employee_id"]
+    employee.first_name = _row["first_name"]
+    employee.last_name = _row["last_name"]
+    employee.department_id = _row["department_id"]
+    employee.is_supervisor = _row["is_supervisor"]
+
+    # Return a tuple containing the department and the
+    # employee built from the data in the current row of
+    # the data set
+    return (department, employee)
+
+@login_required
 def department_list(request):
     if request.method == 'GET':
         with sqlite3.connect(Connection.db_path) as conn:
-            conn.row_factory = sqlite3.Row
+            conn.row_factory = create_department
             db_cursor = conn.cursor()
 
             db_cursor.execute("""
@@ -15,29 +42,32 @@ def department_list(request):
                 d.id,
                 d.dept_name,
                 d.budget,
-                e.id,
+                e.id employee_id,
                 e.first_name,
                 e.last_name,
                 e.department_id
                 FROM hrapp_department d
-                JOIN hrapp_employee e ON e.id = e.department_id
+                JOIN hrapp_employee e ON d.id = e.department_id
             """)
 
+            all_departments = db_cursor.fetchall()
 
-            all_departments = []
-            dataset = db_cursor.fetchall()
+            department_groups = {}
 
-            for row in dataset:
-                department = Department()
-                department.id = row['id']
-                department.dept_name = row['dept_name']
-                department.budget = row['budget']
+            for department, employee in all_departments:
 
-                all_departments.append(department)
+                if department.id not in department_groups:
+                    department_groups[department.id] = department
+                    department_groups[department.id].employees.append(employee)
 
-        template = 'departments/department_list.html'
+                else:
+                    department_groups[department.id].employees.append(employee)
+
+        template_name = 'departments/department_list.html'
         context = {
-            'all_departments': all_departments
+            'all_departments' : department_groups.values()
         }
 
-        return render(request, template, context)
+        return render(request, template_name, context )
+
+
