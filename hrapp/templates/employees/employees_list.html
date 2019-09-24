@@ -1,15 +1,20 @@
 {% extends 'shared/base.html' %}
+{% load staticfiles %}
+
+{% block css %}
+    <link rel="stylesheet" href="{% static 'styles/base.css' %}" />
+{% endblock %}
 
 {% block content %}
 <h1>Employees</h1>
-{% comment %} <a href="{% url 'hrapp:employee_form' %}">Add Employee to Bangazon</a> {% endcomment %}
+<a href="{% url 'hrapp:employee_form' %}">Add Employee to Bangazon</a>
 
 
 <ol>
 {% for employee in employees %}
     <li>
         <p>{{ employee }}</p>
-        Current computer: {{employee.computer}}
+        Department: {{employee.dept_name}}
     </li>
 {% endfor %}
 </ol>
