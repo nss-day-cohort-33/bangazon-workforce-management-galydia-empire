@@ -1,0 +1,19 @@
+{% extends 'shared/base.html' %}
+
+{% block content %}
+<h1>Training Programs</h1>
+<a href="{% url 'hrapp:training_program_form' %}">Add Training Program to Bangazon</a>
+
+
+<ol>
+{% for training in training_programs %}
+    <li>
+        <p>{{ training }}</p>
+        Start Date: {{training.start_date}}<br>
+        End Date: {{training.end_date}}<br>
+        Capacity: {{training.capacity}}<br>
+        Description: {{training.description}}
+    </li>
+{% endfor %}
+</ol>
+{% endblock content %}

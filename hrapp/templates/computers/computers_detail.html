@@ -1,0 +1,9 @@
+{% extends 'shared/base.html' %}
+
+{% block content %}
+    <div>
+    Computer Manufacturer & Model: {{computer.manufacturer}} {{computer.model}}
+        <br>&emsp;Purchase Date: {{computer.purchase_date}}
+        <br>&emsp;Decommission Date: {{computer.decommission_date}}
+    </div>
+{% endblock %}
