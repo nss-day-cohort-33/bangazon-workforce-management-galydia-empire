@@ -12,14 +12,15 @@ class Computer(models.Model):
       employees: This property contains the many to many relationship with the computer/employee model
     '''
 
-    make = models.CharField(max_length=20)
+    manufacturer = models.CharField(max_length=20)
+    model = models.CharField(max_length=20)
     purchase_date = models.DateField()
     decommission_date = models.DateField(null=True, blank=True, default=None)
     employees = models.ManyToManyField("Employee", through='EmployeeComputer')
 
-    class Meta:
-        verbose_name = ("Computer")
-        verbose_name_plural = ("Computers")
+    # class Meta:
+    #     verbose_name = ("Computer")
+    #     verbose_name_plural = ("Computers")
 
-    def get_absolute_url(self):
-        return reverse("Computer_detail", kwargs={"pk": self.pk})
+    # def get_absolute_url(self):
+    #     return reverse("Computer_detail", kwargs={"pk": self.pk})
