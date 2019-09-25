@@ -34,6 +34,11 @@
             <input id="start_date" type="text" name="start_date">
         </fieldset>
         <fieldset>
+            <label for="is_supervisor">Is Supervisor: </label>
+            <input class="is_supervisor" type='hidden' value='0' name='is_supervisor'>
+            <input class="is_supervisor" type='checkbox' value='1' name='is_supervisor'>
+        </fieldset>
+        <fieldset>
             <label for="department_id">Department: </label>
             <select id="department_id" type="text" name="department_id">
                 {% for department in all_departments %}
