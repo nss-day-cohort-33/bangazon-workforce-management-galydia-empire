@@ -25,6 +25,7 @@ def get_departments():
 def department_form(request):
     if request.method == 'GET':
         departments = get_departments()
+
         template = 'department/form.html'
         context = {
             'all_departments': departments

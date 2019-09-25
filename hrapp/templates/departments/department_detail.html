@@ -1,0 +1,19 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Department</title>
+  </head>
+  <body>
+    <h1>{{ department.name }}</h1>
+    <h3>The budget for this departments is ${{ department.budget }}</h3>
+    <h3>Employees within {{department.name}} are: (listed here)</h3>
+
+    <form action="{% url 'hrapp:department' department.id %}" method="POST">
+      {% csrf_token %}
+      <input type="hidden" name="actual_method" value="DELETE">
+      <button>Delete</button>
+    </form>
+  </body>
+</html>

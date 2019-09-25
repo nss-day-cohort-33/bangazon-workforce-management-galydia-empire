@@ -7,13 +7,15 @@
 
 
 <ol>
-{% for department in departments %}
+{% for department in all_departments %}
     <li>
         <p>{{ department.dept_name }}</p>
         <p>Budget:{{ department.budget }}</p>
+        {% for employee in department.employees %}
         <p>Employees: {{ employee.first_name }} {{ employee.last_name }}</p>
+        {% endfor %}
     </li>
 {% endfor %}
 </ol>
-{% endblock content %}
+{% endblock %}
 

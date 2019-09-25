@@ -23,7 +23,7 @@ def create_department(cursor, row):
     employee.first_name = _row["first_name"]
     employee.last_name = _row["last_name"]
     employee.department_id = _row["department_id"]
-    employee.is_supervisor = _row["is_supervisor"]
+
 
     # Return a tuple containing the department and the
     # employee built from the data in the current row of
@@ -33,7 +33,7 @@ def create_department(cursor, row):
 @login_required
 def department_list(request):
     if request.method == 'GET':
-        with sqlite3.connect(Connection.db_path) as conn:
+        with sqlite3.connect('/Users/scottsilver/workspace/python-stuff/bangazon-workforce-management-galydia-empire/db.sqlite3') as conn:
             conn.row_factory = create_department
             db_cursor = conn.cursor()
 
@@ -54,7 +54,7 @@ def department_list(request):
 
             department_groups = {}
 
-            for department, employee in all_departments:
+            for (department, employee) in all_departments:
 
                 if department.id not in department_groups:
                     department_groups[department.id] = department
@@ -65,9 +65,9 @@ def department_list(request):
 
         template_name = 'departments/department_list.html'
         context = {
-            'all_departments' : department_groups.values()
+            'all_departments': department_groups.values()
         }
 
-        return render(request, template_name, context )
+        return render(request, template_name, context)
 
 
