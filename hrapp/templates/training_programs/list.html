@@ -2,7 +2,7 @@
 
 {% block content %}
 <h1>Training Programs</h1>
-{% comment %} <a href="{% url 'hrapp:training_program_form' %}">Add Training Program to Bangazon</a> {% endcomment %}
+<a href="{% url 'hrapp:training_program_form' %}">Add Training Program to Bangazon</a>
 
 
 <ol>
@@ -11,7 +11,8 @@
         <p>{{ training }}</p>
         Start Date: {{training.start_date}}<br>
         End Date: {{training.end_date}}<br>
-        Capacity: {{training.capacity}}
+        Capacity: {{training.capacity}}<br>
+        Description: {{training.description}}
     </li>
 {% endfor %}
 </ol>
