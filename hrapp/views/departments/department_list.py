@@ -33,7 +33,7 @@ def create_department(cursor, row):
 @login_required
 def department_list(request):
     if request.method == 'GET':
-        with sqlite3.connect('/Users/scottsilver/workspace/python-stuff/bangazon-workforce-management-galydia-empire/db.sqlite3') as conn:
+        with sqlite3.connect(Connection.db_path) as conn:
             conn.row_factory = create_department
             db_cursor = conn.cursor()
 
