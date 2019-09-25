@@ -1,6 +1,6 @@
 import sqlite3
 from django.shortcuts import render, reverse, redirect
-# from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import login_required
 from hrapp.models import Department
 from ..connection import Connection
 from django.contrib.auth.decorators import login_required
@@ -26,7 +26,7 @@ def department_form(request):
     if request.method == 'GET':
         departments = get_departments()
 
-        template = 'department/form.html'
+        template = 'departments/department_form.html'
         context = {
             'all_departments': departments
         }
