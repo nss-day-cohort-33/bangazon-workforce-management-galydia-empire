@@ -8,11 +8,10 @@
 <ol>
 {% for computer in computers %}
     <li>
-        <p>{{ computer }}</p>
-        Make: {{computer.make}}
-            Purchase Date: {{computer.purchase_date}}
-            Decommission Date: {{computer.decommission_date}}
-    </li>
+    Computer Make & Model: <a href="{% url 'hrapp:computer' computer.id %}">{{computer.make}} </a>
+        <br>&emsp;Purchase Date: {{computer.purchase_date}}
+        <br>&emsp;Decommission Date: {{computer.decommission_date}}
+    </li><br>
 {% endfor %}
 </ol>
 {% endblock content %}
