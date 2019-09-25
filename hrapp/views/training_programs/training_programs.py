@@ -38,12 +38,13 @@ def training_program_list(request):
                 training_program.end_date = row['end_date']
                 training_program.capacity = row['capacity']
 
-                start_date = datetime.strptime(row['start_date'], '%m %d %Y')
-                for row in dataset:
-                    if start_date >= datetime.today:
-                        all_training_programs.append(start_date)
+                training_program.start_date = datetime.strptime(row['start_date'], '%m/%d/%Y')
 
-                all_training_programs.append(training_program)
+                now = datetime.today()
+                if training_program.start_date >= now:
+                    # all_training_programs.append(training_program.start_date)
+
+                    all_training_programs.append(training_program)
 
     template = 'training_programs/training_programs_list.html'
     context = {
