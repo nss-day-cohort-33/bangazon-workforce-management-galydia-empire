@@ -1,0 +1,21 @@
+{% extends 'shared/base.html' %}
+
+{% load staticfiles %}
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Library</title>
+  </head>
+  <body>
+      {% block content %}
+
+    <h1>{{ book.title }}</h1>
+    <h2>By {{ book.author }}</h2>
+
+    <div>Published in {{ book.year_published }}</div>
+    <div>ISBN: {{ book.isbn }}</div>
+        {% endblock content %}
+
+  </body>
+</html>
