@@ -20,7 +20,8 @@ def employee_list(request):
                 e.first_name,
                 e.last_name,
                 e.start_date,
-                e.is_supervisor
+                e.is_supervisor,
+                e.department_id
             from hrapp_employee e
             """)
 

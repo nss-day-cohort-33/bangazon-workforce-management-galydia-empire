@@ -1,5 +1,5 @@
 from django.urls import path
-from django.conf.urls import include
+from django.conf.urls import include, url
 from hrapp import views
 from .views import *
 
@@ -12,4 +12,8 @@ urlpatterns = [
     path('computers/', computer_list, name='computer_list'),
     path('computer/form/', computer_form, name='computer_form'),
     path('computer/<int:computer_id>/', computer_details, name='computer'),
+    path('training_programs/', training_program_list, name='training_program_list'),
+    url(r'^training_program/form$', training_program_form, name='training_program_form'),
+    path('departments/', department_list, name='department_list'),
+    path('department/form', department_form, name='department_form'),
 ]

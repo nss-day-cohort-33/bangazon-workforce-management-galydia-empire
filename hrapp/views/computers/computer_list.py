@@ -65,7 +65,7 @@ def computer_list(request):
             (
                 manufacturer, model, purchase_date, decommission_date
             )
-            VALUES (?, ?, ?)
+            VALUES (?, ?, ?, ?)
             """,
             (form_data['manufacturer'], form_data['model'], form_data['purchase_date'],
                 form_data['decommission_date']))
