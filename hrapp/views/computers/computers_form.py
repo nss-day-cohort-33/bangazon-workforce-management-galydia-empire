@@ -15,7 +15,8 @@ def get_computers():
         db_cursor.execute("""
             select
                 c.id,
-                c.make,
+                c.manufacturer,
+                c.model,
                 c.purchase_date,
                 c.decommission_date
             from hrapp_computer c

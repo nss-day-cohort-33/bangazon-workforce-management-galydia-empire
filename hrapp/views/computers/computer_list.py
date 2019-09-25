@@ -27,7 +27,8 @@ def computer_list(request):
             db_cursor.execute("""
             select
                 c.id,
-                c.make,
+                c.manufacturer,
+                c.model,
                 c.purchase_date,
                 c.decommission_date
             from hrapp_computer c
@@ -39,7 +40,8 @@ def computer_list(request):
             for row in dataset:
                 computer = Computer()
                 computer.id = row['id']
-                computer.make = row['make']
+                computer.manufacturer = row['manufacturer']
+                computer.model = row['model']
                 computer.purchase_date = row['purchase_date']
                 computer.decommission_date = row['decommission_date']
 
@@ -61,11 +63,11 @@ def computer_list(request):
             db_cursor.execute("""
             INSERT INTO hrapp_computer
             (
-                make, purchase_date, decommission_date
+                manufacturer, model, purchase_date, decommission_date
             )
             VALUES (?, ?, ?)
             """,
-            (form_data['make'], form_data['purchase_date'],
+            (form_data['manufacturer'], form_data['model'], form_data['purchase_date'],
                 form_data['decommission_date']))
 
             return redirect(reverse('hrapp:computer_list'))

@@ -8,7 +8,7 @@
 <ol>
 {% for computer in computers %}
     <li>
-    Computer Make & Model: <a href="{% url 'hrapp:computer' computer.id %}">{{computer.make}} </a>
+    Computer Manufacturer & Model: <a href="{% url 'hrapp:computer' computer.id %}">{{computer.maufacturer}} {{computer.model}}</a>
         <br>&emsp;Purchase Date: {{computer.purchase_date}}
         <br>&emsp;Decommission Date: {{computer.decommission_date}}
     </li><br>
