@@ -11,30 +11,37 @@
 
 <body>
 
-<section id="employee-details">
+<section id="employee_details">
     <h1>{{ employee.first_name }} {{ employee.last_name }}</h1>
 
     <h2>Department: {{ employee.dept_name }}</h2>
-    <div>Current Computer: {{ employee.computer }}</div>
-    <div>Training Programs:</div>
+    <div>Assigned Computer: {{ employee.manufacturer }} {{ employee.model }}</div>
+    <br>
+    <div>Past Training Programs:</div>
     <ul>
-        {% for program in employee.programs %}
+        {% for program in old_trainings %}
+            <li>{{ program.title }}</li>
+        {% endfor %}
+    </ul>
+    <div>Upcoming Training Programs:</div>
+    <ul>
+        {% for program in new_trainings %}
             <li>{{ program }}</li>
         {% endfor %}
     </ul>
 </section>
 
     <section id="employee-actions" style="display:flex;">
-        <form action="{% url 'libraryapp:employee' employee.id %}" method="POST">
+        <form action="{% url 'hrapp:employee' employee.id %}" method="POST">
             {% csrf_token %}
             <input type="hidden" name="actual_method" value="DELETE">
             <button>Delete</button>
         </form>
 
-        <form action="{% url 'libraryapp:employee_edit_form' employee.id %}" method="GET">
+        {% comment %} <form action="{% url 'hrapp:employee_edit_form' employee.id %}" method="GET">
             {% csrf_token %}
             <button>Edit</button>
-        </form>
+        </form> {% endcomment %}
     </section>
 
 </body>
