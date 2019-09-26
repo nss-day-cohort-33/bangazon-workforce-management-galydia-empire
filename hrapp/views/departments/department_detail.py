@@ -49,4 +49,4 @@ def department_details(request, department_id):
                 WHERE id = ?
                 """, (department_id,))
 
-            return redirect(reverse('hrapp:departments'))
+            return redirect(reverse('hrapp:department'))

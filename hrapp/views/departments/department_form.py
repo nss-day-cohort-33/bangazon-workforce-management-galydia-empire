@@ -32,20 +32,3 @@ def department_form(request):
         }
         return render(request, template, context)
 
-    elif request.method == 'POST':
-        form_data = request.POST
-
-        with sqlite3.connect(Connection.db_path) as conn:
-            db_cursor = conn.cursor()
-
-            db_cursor.execute("""
-            INSERT INTO hrapp_department
-            (
-                name, budget
-            )
-            VALUES (?, ?)
-            """,
-            (form_data['name'], form_data['budget'])
-            )
-
-        return redirect(reverse('hrapp:departments'))
