@@ -8,21 +8,17 @@
         {% if dept_employees|length is not 0 %}
         <h3>Employee List</h3>
         {% endif %}
+        <ol>
+            {% for employee in department.employees %}
 
-        {% for employee in dept_employees %}
-        {% if employee.is_supervisor %}
-            <p><strong>- {{ employee.first_name }} {{employee.last_name}} (S)</strong></p>
-        {% endif %}
-        {% endfor %}
-
-        {% for employee in dept_employees %}
-        {% if employee.is_supervisor is 0 %}
-            <p>- {{employee.first_name}} {{employee.last_name}}</p>
-        {% endif %}
+            <li>Employees: {{ employee.first_name }} {{employee.last_name}} </li>
 
         {% endfor %}
+        </ol>
+
     </section>
 
 {% endblock %}
+
 
 

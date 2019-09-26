@@ -9,16 +9,14 @@
 <ol>
 {% for department in all_departments %}
     <li>
-   {% comment %} <a href="{% url 'hrapp:department_detail' department.id %}"> {{ department.dept_name }}</a> {% endcomment %}
-        <p>Budget:{{ department.budget }}
-        <br><br>Employees: </p>
-        {% for employee in department.employees %}
-        <ul>
+    {% comment %} <a href="{% url 'hrapp:department_detail' department.id %}"> {{ department.dept_name }}</a> {% endcomment %}
+        <p>Budget:  ${{ department.budget|intcomma }}
+
         &emsp;<p>Number of employees: {{ department.employees|length }}</p>
-        </ul>
+
         {% endfor %}
     </li>
-{% endfor %}
+
 </ol>
 {% endblock %}
 
