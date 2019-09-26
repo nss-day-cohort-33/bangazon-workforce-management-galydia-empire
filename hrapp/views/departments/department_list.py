@@ -1,5 +1,6 @@
 import sqlite3
-from django.shortcuts import render
+from django.urls import reverse
+from django.shortcuts import render, redirect
 from hrapp.models import Department, Employee
 from hrapp.models import model_factory
 from ..connection import Connection
@@ -47,21 +48,22 @@ def department_list(request):
                 e.last_name,
                 e.department_id
                 FROM hrapp_department d
-                JOIN hrapp_employee e ON d.id = e.department_id
+                LEFT JOIN hrapp_employee e ON d.id = e.department_id
             """)
 
             all_departments = db_cursor.fetchall()
 
             department_groups = {}
 
-            for (department, employee) in all_departments:
-
+            for department, employee in all_departments:
                 if department.id not in department_groups:
                     department_groups[department.id] = department
-                    department_groups[department.id].employees.append(employee)
+                    if employee.first_name is not None:
+                        department_groups[department.id].employees.append(employee)
 
                 else:
-                    department_groups[department.id].employees.append(employee)
+                    if employee.first_name is not None:
+                        department_groups[department.id].employees.append(employee)
 
         template_name = 'departments/department_list.html'
         context = {
@@ -69,5 +71,23 @@ def department_list(request):
         }
 
         return render(request, template_name, context)
+
+    elif request.method == 'POST':
+        form_data = request.POST
+
+        with sqlite3.connect(Connection.db_path) as conn:
+            db_cursor = conn.cursor()
+
+            db_cursor.execute("""
+            INSERT INTO hrapp_department
+            (
+                dept_name, budget
+            )
+            VALUES (?, ?)
+            """,
+            (form_data['dept_name'], form_data['budget'])
+            )
+
+        return redirect(reverse('hrapp:department_list'))
 
 

@@ -2,7 +2,8 @@ import sqlite3
 from django.urls import reverse
 from django.shortcuts import render, redirect, reverse
 from django.contrib.auth.decorators import login_required
-from hrapp.models import Department
+from hrapp.models import Department, Employee
+from hrapp.views import get_employees
 from ..connection import Connection
 
 
@@ -26,10 +27,12 @@ def get_department(department_id):
 def department_details(request, department_id):
     if request.method == 'GET':
         department = get_department(department_id)
+        all_employees = get_employees()
 
         template = 'departments/department_detail.html'
         context = {
-            'department': department
+            'department': department,
+            'all_employees': all_employees
         }
 
         return render(request, template, context)
@@ -49,4 +52,6 @@ def department_details(request, department_id):
                 WHERE id = ?
                 """, (department_id,))
 
-            return redirect(reverse('hrapp:departments'))
+            return redirect(reverse('hrapp:department'))
+
+
