@@ -9,7 +9,7 @@ from ..connection import Connection
 
 def get_training_program(training_program_id):
     with sqlite3.connect(Connection.db_path) as conn:
-        conn.row_factory = create_training_program
+        conn.row_factory = model_factory(TrainingProgram)
         db_cursor = conn.cursor()
 
         db_cursor.execute("""
@@ -19,19 +19,8 @@ def get_training_program(training_program_id):
             tp.start_date,
             tp.end_date,
             tp.capacity,
-            tp.description,
-            tp.employee_id,
-            tpe.id employee_id,
-            tpe.id training_program_id,
-            e.id,
-            e.first_name,
-            e.last_name
-
-
-
+            tp.description
         FROM hrapp_trainingprogram tp
-        JOIN hrapp_trainingprogramemployee tpe on tp.id = tpe.training_program_id
-        JOIN hrapp_employee e on e.id = tpe.employee_id
         WHERE tp.id = ?
         """, (training_program_id,))
 
