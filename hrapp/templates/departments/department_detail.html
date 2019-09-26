@@ -9,9 +9,9 @@
         <h3>Employee List</h3>
         {% endif %}
         <ol>
+            <h3>Employees</h3>
             {% for employee in all_employees %}
-
-            <li>Employees: {{ employee.first_name }} {{employee.last_name}} </li>
+            <li> {{ employee.first_name }} {{employee.last_name}} </li>
 
         {% endfor %}
         </ol>
