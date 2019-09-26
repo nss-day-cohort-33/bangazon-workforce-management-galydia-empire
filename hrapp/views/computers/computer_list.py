@@ -2,18 +2,11 @@ import sqlite3
 from django.shortcuts import render
 from django.shortcuts import redirect
 from django.urls import reverse
-from hrapp.models import Computer
+from hrapp.models import Computer, Employee, EmployeeComputer
 from hrapp.models import model_factory
 from django.contrib.auth.decorators import login_required
 from ..connection import Connection
 from .computers_form import get_computers
-
-
-
-
-
-from ..connection import Connection
-from django.contrib.auth.decorators import login_required
 
 
 @login_required
@@ -23,7 +16,6 @@ def computer_list(request):
             conn.row_factory = sqlite3.Row
             db_cursor = conn.cursor()
 
-            # TODO: Add to query: c.department,
             db_cursor.execute("""
             select
                 c.id,
@@ -56,9 +48,11 @@ def computer_list(request):
 
     elif request.method == 'POST':
         form_data = request.POST
+        last_id = None
 
         with sqlite3.connect(Connection.db_path) as conn:
             db_cursor = conn.cursor()
+            nothing = None
 
             db_cursor.execute("""
             INSERT INTO hrapp_computer
@@ -68,7 +62,29 @@ def computer_list(request):
             VALUES (?, ?, ?, ?)
             """,
             (form_data['manufacturer'], form_data['model'], form_data['purchase_date'],
-                form_data['decommission_date']))
+                nothing))
+
+            db_cursor.execute("""
+            select last_insert_rowid()
+            """)
+
+            last_id = db_cursor.fetchone()
+
+        if form_data['employee'] != 'Null':
+            with sqlite3.connect(Connection.db_path) as conn:
+                db_cursor = conn.cursor()
+                nothing = None
+
+                db_cursor.execute("""
+                INSERT INTO hrapp_employeecomputer
+                (
+                    assigned_date, unassigned_date, computer_id,
+                    employee_id
+                )
+                VALUES (?, ?, ?, ?)
+                """,
+                (form_data['purchase_date'], nothing,
+                    last_id[0], form_data['employee']))
 
             return redirect(reverse('hrapp:computer_list'))
 
