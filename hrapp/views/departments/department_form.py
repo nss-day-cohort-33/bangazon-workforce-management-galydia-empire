@@ -25,7 +25,6 @@ def get_departments():
 def department_form(request):
     if request.method == 'GET':
         departments = get_departments()
-
         template = 'departments/department_form.html'
         context = {
             'all_departments': departments
@@ -35,17 +34,17 @@ def department_form(request):
     elif request.method == 'POST':
         form_data = request.POST
 
-    with sqlite3.connect(Connection.db_path) as conn:
-        db_cursor = conn.cursor()
+        with sqlite3.connect(Connection.db_path) as conn:
+            db_cursor = conn.cursor()
 
-        db_cursor.execute("""
-        INSERT INTO hrapp_department
-        (
-            name, budget
-        )
-        VALUES (?, ?)
-        """,
-        (form_data['name'], form_data['budget'])
-        )
+            db_cursor.execute("""
+            INSERT INTO hrapp_department
+            (
+                name, budget
+            )
+            VALUES (?, ?)
+            """,
+            (form_data['name'], form_data['budget'])
+            )
 
         return redirect(reverse('hrapp:departments'))

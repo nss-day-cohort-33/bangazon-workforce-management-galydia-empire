@@ -1,19 +1,34 @@
-{% load staticfiles %}
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="utf-8">
-    <title>Department</title>
-  </head>
-  <body>
-    <h1>{{ department.name }}</h1>
-    <h3>The budget for this department is ${{ department.budget }}</h3>
-    <h3>Employees within {{department.name}} are: (listed here)</h3>
+{% extends 'shared/base.html' %}
 
+{% block content %}
+    <h1>{{ department.dept_name }}</h1>
+    <h3>The budget for this department is ${{ department.budget }}</h3>
+    <h3>Employees within {{department.name}} are: </h3>
+    {% for employee in department.employees %}
+        <ul>
+        &emsp;<li>{{ employee.first_name }} {{ employee.last_name }}</li>
+        </ul>
+        {% endfor %}
     <form action="{% url 'hrapp:department' department.id %}" method="POST">
       {% csrf_token %}
       <input type="hidden" name="actual_method" value="DELETE">
       <button>Delete</button>
     </form>
-  </body>
-</html>
+    {% endblock %}
+
+
+
+{% comment %} {% block content %}
+<h1>Departments</h1>
+<a href="{% url 'hrapp:department_form' %}">Add Department to Bangazon</a>
+
+
+<ol>
+{% for department in all_departments %}
+    <li>
+   {% comment %} <a href="{% url 'hrapp:department_detail' department.id %}"> {{ department.dept_name }}</a> {% endcomment %}
+        {% comment %} <p>Budget:{{ department.budget }}
+
+    </li>
+{% endfor %}
+</ol> {% endcomment %}
