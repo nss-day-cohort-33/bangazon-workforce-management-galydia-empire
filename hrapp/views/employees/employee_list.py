@@ -17,7 +17,7 @@ def get_employees():
             e.last_name,
             e.start_date,
             e.is_supervisor,
-            e.department_id_id
+            e.department_id
         from hrapp_employee e
         """)
         return db_cursor.fetchall()
@@ -103,7 +103,7 @@ def employee_list(request):
 #     librarian.id = _row["librarian_id"]
 #     librarian.first_name = _row["first_name"]
 #     librarian.last_name = _row["last_name"]
-    
+
 
 #     library = Library()
 #     library.id = _row["library_id"]
