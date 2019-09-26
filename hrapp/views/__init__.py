@@ -6,6 +6,8 @@ from .training_programs.form import training_program_form
 from .departments.department_list import department_list
 from .departments.department_form import department_form
 from .departments.department_detail import department_details
+from .training_programs.details import training_program_details
+
 from .employees.employee_list import employee_list
 from .employees.employee_form import employee_form
 from .employees.employee_details import employee_details
