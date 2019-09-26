@@ -1,21 +1,26 @@
-
 {% extends 'shared/base.html' %}
 
 {% block content %}
+{% load humanize %}
 <h1>Departments</h1>
-{% comment %} <a href="{% url 'hrapp:department_form' %}">Add Department to Bangazon</a> {% endcomment %}
+<a href="{% url 'hrapp:department_form' %}">Add Department to Bangazon</a>
 
 
 <ol>
 {% for department in all_departments %}
     <li>
-        <p>{{ department.dept_name }}</p>
-        <p>Budget:{{ department.budget }}</p>
-        {% for employee in department.employees %}
-        <p>Employees: {{ employee.first_name }} {{ employee.last_name }}</p>
+    {% comment %} <a href="{% url 'hrapp:department_detail' department.id %}"> {{ department.dept_name }}</a> {% endcomment %}
+        <p>Budget:  ${{ department.budget|intcomma }}
+
+        &emsp;<p>Number of employees: {{ department.employees|length }}</p>
+
         {% endfor %}
     </li>
-{% endfor %}
+
 </ol>
 {% endblock %}
+
+
+
+
 
