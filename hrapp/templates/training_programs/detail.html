@@ -5,16 +5,17 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <title>Library</title>
+    <title>Training Programs</title>
   </head>
   <body>
       {% block content %}
 
-    <h1>{{ book.title }}</h1>
-    <h2>By {{ book.author }}</h2>
+    <h1>{{ training_program.title }}</h1>
+    <h2>Start Date: {{ training_program.start_date }}</h2>
+    <h2>End Date: {{ training_program.end_date }}</h2>
+    <h2>Description {{ training_program.description }}</h2>
 
-    <div>Published in {{ book.year_published }}</div>
-    <div>ISBN: {{ book.isbn }}</div>
+    {% comment %} <div>Number of Attendees {{ book.year_published }}</div> {% endcomment %}
         {% endblock content %}
 
   </body>
