@@ -1,10 +1,26 @@
 import sqlite3
 from django.shortcuts import render, redirect, reverse
-from hrapp.models import Employee, model_factory
+from hrapp.models import Employee
+from hrapp.models import model_factory
 from django.contrib.auth.decorators import login_required
 from ..connection import Connection
 
 
+def get_employees():
+    with sqlite3.connect(Connection.db_path) as conn:
+        conn.row_factory = model_factory(Employee)
+        db_cursor = conn.cursor()
+        db_cursor.execute("""
+        select
+            e.id,
+            e.first_name,
+            e.last_name,
+            e.start_date,
+            e.is_supervisor,
+            e.department_id
+        from hrapp_employee e
+        """)
+        return db_cursor.fetchall()
 
 @login_required
 def employee_list(request):
@@ -65,3 +81,4 @@ def employee_list(request):
                 form_data['department_id']))
 
         return redirect(reverse('hrapp:employees'))
+
