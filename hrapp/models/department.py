@@ -14,4 +14,4 @@ class Department(models.Model):
         return f"{self.dept_name}"
 
     def get_absolute_url(self):
-        return reverse("Department_detail", kwargs={"pk": self.pk})
+        return reverse("department_detail", kwargs={"pk": self.pk})
