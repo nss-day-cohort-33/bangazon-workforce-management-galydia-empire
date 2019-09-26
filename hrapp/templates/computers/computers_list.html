@@ -11,6 +11,7 @@
     Computer Manufacturer & Model: <a href="{% url 'hrapp:computer' computer.id %}">{{computer.manufacturer}} {{computer.model}}</a>
         <br>&emsp;Purchase Date: {{computer.purchase_date}}
         <br>&emsp;Decommission Date: {{computer.decommission_date}}
+        <br>&emsp;Currently Assigned Employee: {{ employee.first_name }} {{ employee.last_name }}
     </li><br>
 {% endfor %}
 </ol>
