@@ -10,6 +10,7 @@ from .training_programs.details import training_program_details
 
 from .employees.employee_list import employee_list
 from .employees.employee_form import employee_form
+from .employees.employee_details import employee_details
 from .computers.computer_list import computer_list
 from .computers.computers_form import computer_form
 from .computers.computer_detail import computer_details

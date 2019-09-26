@@ -14,29 +14,28 @@
 <body>
     <h1>New Employee</h1>
 
-    {% comment %} {% if employee.id is not None %}
+    {% if employee.id is not None %}
         <form action="{% url 'hrapp:employee' employee.id %}" method="post">
-    {% else %} {% endcomment %}
+    {% else %}
         <form action="{% url 'hrapp:employees' %}" method="post">
-    {% comment %} {% endif %} {% endcomment %}
+    {% endif %}
         {% csrf_token %}
         <fieldset>
             <label for="first_name">First Name: </label>
-            <input id="first_name" type="text" name="first_name">
-            {% comment %} value="{{ employee.first_name }}" {% endcomment %}
+            <input id="first_name" type="text" name="first_name" value="{{ employee.first_name }}">
         </fieldset>
         <fieldset>
             <label for="last_name">Last Name: </label>
-            <input id="last_name" type="text" name="last_name">
+            <input id="last_name" type="text" name="last_name" value="{{ employee.last_name }}">
         </fieldset>
         <fieldset>
             <label for="start_date">Start Date: </label>
-            <input id="start_date" type="text" name="start_date">
+            <input id="start_date" type="text" name="start_date" value="{{ employee.start_date }}">
         </fieldset>
         <fieldset>
             <label for="is_supervisor">Is Supervisor: </label>
             <input class="is_supervisor" type='hidden' value='0' name='is_supervisor'>
-            <input class="is_supervisor" type='checkbox' value='1' name='is_supervisor'>
+            <input class="is_supervisor" type='checkbox' value='1' name='is_supervisor' value="{{ employee.is_supervisor }}">
         </fieldset>
         <fieldset>
             <label for="department_id">Department: </label>
@@ -48,12 +47,12 @@
             </select>
         </fieldset>
 
-        {% comment %} {% if employee.id is not None %}
+        {% if employee.id is not None %}
             <input type="hidden" name="actual_method" value="PUT">
             <input type="submit" value="Update" />
-        {% else %} {% endcomment %}
+        {% else %}
             <input type="submit" value="Create" />
-        {% comment %} {% endif %} {% endcomment %}
+        {% endif %}
 
     </form>
 </body>
