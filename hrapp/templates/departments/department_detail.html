@@ -9,7 +9,7 @@
         <h3>Employee List</h3>
         {% endif %}
         <ol>
-            {% for employee in department.employees %}
+            {% for employee in all_employees %}
 
             <li>Employees: {{ employee.first_name }} {{employee.last_name}} </li>
 
