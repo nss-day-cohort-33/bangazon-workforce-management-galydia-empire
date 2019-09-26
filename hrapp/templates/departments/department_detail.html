@@ -1,34 +1,28 @@
 {% extends 'shared/base.html' %}
+  {% block content %}
+  {% load humanize %}
+    <section>
 
-{% block content %}
-    <h1>{{ department.dept_name }}</h1>
-    <h3>The budget for this department is ${{ department.budget }}</h3>
-    <h3>Employees within {{department.name}} are: </h3>
-    {% for employee in department.employees %}
-        <ul>
-        &emsp;<li>{{ employee.first_name }} {{ employee.last_name }}</li>
-        </ul>
+        <h1>{{ department.dept_name }}</h1>
+        <h3>Budget: ${{department.budget|intcomma}}</h3>
+        {% if dept_employees|length is not 0 %}
+        <h3>Employee List</h3>
+        {% endif %}
+
+        {% for employee in dept_employees %}
+        {% if employee.is_supervisor %}
+            <p><strong>- {{ employee.first_name }} {{employee.last_name}} (S)</strong></p>
+        {% endif %}
         {% endfor %}
-    <form action="{% url 'hrapp:department' department.id %}" method="POST">
-      {% csrf_token %}
-      <input type="hidden" name="actual_method" value="DELETE">
-      <button>Delete</button>
-    </form>
-    {% endblock %}
+
+        {% for employee in dept_employees %}
+        {% if employee.is_supervisor is 0 %}
+            <p>- {{employee.first_name}} {{employee.last_name}}</p>
+        {% endif %}
+
+        {% endfor %}
+    </section>
+
+{% endblock %}
 
 
-
-{% comment %} {% block content %}
-<h1>Departments</h1>
-<a href="{% url 'hrapp:department_form' %}">Add Department to Bangazon</a>
-
-
-<ol>
-{% for department in all_departments %}
-    <li>
-   {% comment %} <a href="{% url 'hrapp:department_detail' department.id %}"> {{ department.dept_name }}</a> {% endcomment %}
-        {% comment %} <p>Budget:{{ department.budget }}
-
-    </li>
-{% endfor %}
-</ol> {% endcomment %}
