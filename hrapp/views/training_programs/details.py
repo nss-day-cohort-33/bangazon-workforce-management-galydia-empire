@@ -9,7 +9,7 @@ from ..connection import Connection
 
 def get_training_program(training_program_id):
     with sqlite3.connect(Connection.db_path) as conn:
-        conn.row_factory = model_factory(TrainingProgram)
+        conn.row_factory = create_training_program
         db_cursor = conn.cursor()
 
         db_cursor.execute("""
@@ -19,8 +19,19 @@ def get_training_program(training_program_id):
             tp.start_date,
             tp.end_date,
             tp.capacity,
-            tp.description
+            tp.description,
+            tp.employee_id,
+            tpe.id employee_id,
+            tpe.id training_program_id,
+            e.id,
+            e.first_name,
+            e.last_name
+
+
+
         FROM hrapp_trainingprogram tp
+        JOIN hrapp_trainingprogramemployee tpe on tp.id = tpe.training_program_id
+        JOIN hrapp_employee e on e.id = tpe.employee_id
         WHERE tp.id = ?
         """, (training_program_id,))
 
@@ -37,3 +48,23 @@ def training_program_details(request, training_program_id):
         }
 
         return render(request, template, context)
+
+def create_training_program(cursor, row):
+    _row = sqlite3.Row(cursor, row)
+
+    training_program = TrainingProgram()
+    training_program.id = _row["training_program_id"]
+    training_program.title = _row["title"]
+    training_program.start_date = _row["start_date"]
+    training_program.end_date = _row["end_date"]
+    training_program.capacity = _row["capacity"]
+    training_program.description = _row["description"]
+
+    employee = Employee()
+    employee.id = _row["employee_id"]
+    employee.first_name = _row["first_name"]
+    employee.last_name = _row["last_name"]
+
+    training_program.employee = employee
+
+    return training_program
